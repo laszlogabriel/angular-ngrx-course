@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Course} from "../model/course";
-import {Observable} from "rxjs";
-import {filter, map, tap, withLatestFrom} from "rxjs/operators";
-import {CoursesService} from "../services/courses.service";
+import {Course} from '../model/course';
+import {Observable} from 'rxjs';
+import {filter, map, tap, withLatestFrom} from 'rxjs/operators';
+import {CoursesService} from '../services/courses.service';
 import {AppState} from '../../reducers';
 import {select, Store} from '@ngrx/store';
 import {selectAdvancedCourses, selectAllCourses, selectBeginnerCourses, selectPromoTotal} from '../course.selectors';

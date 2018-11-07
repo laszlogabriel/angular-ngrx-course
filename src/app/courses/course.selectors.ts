@@ -8,12 +8,12 @@ import * as fromLesson from './lessons.reducers';
 import {PageQuery} from './course.actions';
 import {LessonsState} from './lessons.reducers';
 
-export const selectCoursesState = createFeatureSelector<CoursesState>("courses");
+export const selectCoursesState = createFeatureSelector<CoursesState>('courses');
 
-export const selectLessonsState = createFeatureSelector<LessonsState>("lessons");
+export const selectLessonsState = createFeatureSelector<LessonsState>('lessons');
 
 
-export const selectCourseById = (courseId:number) => createSelector(
+export const selectCourseById = (courseId: number) => createSelector(
   selectCoursesState,
   coursesState => coursesState.entities[courseId]
 );
@@ -55,7 +55,7 @@ export const selectAllLessons = createSelector(
 );
 
 
-export const selectLessonsPage = (courseId:number, page:PageQuery) => createSelector(
+export const selectLessonsPage = (courseId: number, page: PageQuery) => createSelector(
   selectAllLessons,
   allLessons => {
 

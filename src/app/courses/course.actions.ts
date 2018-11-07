@@ -17,14 +17,14 @@ export enum CourseActionTypes {
 
 export interface PageQuery {
   pageIndex: number;
-  pageSize:number;
+  pageSize: number;
 }
 
 export class LessonsPageRequested implements Action {
 
   readonly type = CourseActionTypes.LessonsPageRequested;
 
-  constructor(public payload: {courseId:number, page:PageQuery}) {}
+  constructor(public payload: {courseId: number, page: PageQuery}) {}
 
 }
 
@@ -32,7 +32,7 @@ export class LessonsPageLoaded implements Action {
 
   readonly type = CourseActionTypes.LessonsPageLoaded;
 
-  constructor(public payload:{lessons: Lesson[]}) {}
+  constructor(public payload: {lessons: Lesson[]}) {}
 
 }
 
