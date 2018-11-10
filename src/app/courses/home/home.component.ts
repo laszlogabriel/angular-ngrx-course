@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Course} from '../model/course';
-import {Observable} from 'rxjs';
-import {filter, map, tap, withLatestFrom} from 'rxjs/operators';
-import {CoursesService} from '../services/courses.service';
-import {AppState} from '../../reducers';
-import {select, Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { Course } from '../model/course';
+import { Observable } from 'rxjs';
+import { filter, map, tap, withLatestFrom } from 'rxjs/operators';
+import { CoursesService } from '../services/courses.service';
+import { AppState } from '../../reducers';
+import { select, Store } from '@ngrx/store';
+import { selectAllCourses, selectBeginnerCourses, selectAdvancedCourses, selectPromoTotal } from '../course.selectors';
+import { AllCoursesRequested } from '../course.actions';
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
@@ -18,25 +21,19 @@ export class HomeComponent implements OnInit {
 
     advancedCourses$: Observable<Course[]>;
 
-    constructor(private coursesService: CoursesService, private store: Store<AppState>) {
+    constructor(private store: Store<AppState>) {
 
     }
 
     ngOnInit() {
 
-        const courses$ = this.coursesService.findAllCourses();
+        this.store.dispatch(new AllCoursesRequested());
 
-        this.beginnerCourses$ = courses$.pipe(
-          map(courses => courses.filter(course => course.category === 'BEGINNER') )
-        );
+        this.beginnerCourses$ = this.store.pipe(select(selectBeginnerCourses));
 
-        this.advancedCourses$ = courses$.pipe(
-            map(courses => courses.filter(course => course.category === 'ADVANCED') )
-        );
+        this.advancedCourses$ = this.store.pipe(select(selectAdvancedCourses));
 
-        this.promoTotal$ = courses$.pipe(
-            map(courses => courses.filter(course => course.promo).length)
-        );
+        this.promoTotal$ = this.store.pipe(select(selectPromoTotal));
 
     }
 
