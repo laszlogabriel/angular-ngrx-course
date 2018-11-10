@@ -9,18 +9,18 @@ import {defer, of} from 'rxjs';
 @Injectable()
 export class AuthEffects {
 
-  @Effect({dispatch:false})
+  @Effect({dispatch: false})
   login$ = this.actions$.pipe(
     ofType<Login>(AuthActionTypes.LoginAction),
-    tap(action => localStorage.setItem("user", JSON.stringify(action.payload.user)))
+    tap(action => localStorage.setItem('user', JSON.stringify(action.payload.user)))
   );
 
-  @Effect({dispatch:false})
+  @Effect({dispatch: false})
   logout$ = this.actions$.pipe(
     ofType<Logout>(AuthActionTypes.LogoutAction),
     tap(() => {
 
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
       this.router.navigateByUrl('/login');
 
     })
@@ -29,10 +29,10 @@ export class AuthEffects {
   @Effect()
   init$ = defer(() => {
 
-    const userData = localStorage.getItem("user");
+    const userData = localStorage.getItem('user');
 
     if (userData) {
-       return of(new Login({user:JSON.parse(userData)}));
+       return of(new Login({user: JSON.parse(userData)}));
     }
     else {
       return <any> of(new Logout());
@@ -40,7 +40,7 @@ export class AuthEffects {
 
   });
 
-  constructor(private actions$: Actions, private router:Router) {
+  constructor(private actions$: Actions, private router: Router) {
 
 
   }
